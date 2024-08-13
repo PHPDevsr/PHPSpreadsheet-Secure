@@ -1,0 +1,9 @@
+includes:
+	- phpstan-baseline.php
+
+parameters:
+	tmpDir: build/phpstan
+	level: 9
+	paths:
+		- src/
+		- tests/

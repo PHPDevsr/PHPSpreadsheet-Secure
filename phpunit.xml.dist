@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+    backupGlobals="false"
+    beStrictAboutOutputDuringTests="true"
+    colors="true"
+    columns="max"
+    failOnRisky="true"
+    failOnWarning="true"
+    cacheDirectory="build/.phpunit.cache">
+	<coverage
+        includeUncoveredFiles="true"
+        pathCoverage="false"
+        ignoreDeprecatedCodeUnits="true"
+        disableCodeCoverageIgnore="true">
+		<report>
+			<clover outputFile="build/phpunit/clover.xml"/>
+			<html outputDirectory="build/phpunit/html"/>
+			<php outputFile="build/phpunit/coverage.serialized"/>
+			<text outputFile="php://stdout" showUncoveredFiles="false"/>
+			<xml outputDirectory="build/phpunit/xml-coverage"/>
+		</report>
+	</coverage>
+
+	<testsuites>
+		<testsuite name="App">
+			<directory>./tests</directory>
+		</testsuite>
+	</testsuites>
+
+	<extensions>
+        <bootstrap class="Nexus\PHPUnit\Tachycardia\TachycardiaExtension">
+            <parameter name="time-limit" value="0.50" />
+            <parameter name="report-count" value="30" />
+            <parameter name="precision" value="2" />
+            <parameter name="format" value="table" />
+            <parameter name="ci-format" value="github" />
+        </bootstrap>
+    </extensions>
+
+	<logging>
+		<testdoxHtml outputFile="build/phpunit/testdox.html"/>
+		<testdoxText outputFile="build/phpunit/testdox.txt"/>
+		<junit outputFile="build/phpunit/logfile.xml"/>
+	</logging>
+    <source>
+        <include>
+            <directory suffix=".php">tests</directory>
+        </include>
+        <exclude>
+            <directory suffix=".php">tests/_support</directory>
+        </exclude>
+    </source>
+	<php>
+        <ini name="date.timezone" value="UTC" />
+        <ini name="intl.default_locale" value="C.UTF-8" />
+        <ini name="memory_limit" value="256M" />
+    </php>
+</phpunit>

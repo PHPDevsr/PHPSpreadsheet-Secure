@@ -1,0 +1,83 @@
+{
+    "name": "phpdevsr/phpspreadsheet-secure",
+    "description": "Secure your spreadsheet with Encrypt and Password Protect",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "spreadsheet",
+        "phpspreadsheet",
+        "secure",
+        "encrypt",
+        "excel",
+        "xlsx",
+        "xls"
+    ],
+    "authors": [
+        {
+            "name": "Denny Septian Panggabean",
+            "email": "xamidimura@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "homepage": "https://github.com/PHPDevsr/PHPSpreadsheet-Secure",
+    "require": {
+        "php": "^8.0 || ^8.1 || ^8.2 || ^8.3",
+        "ext-openssl": "*",
+        "ext-hash": "*",
+        "ext-simplexml": "*",
+        "pear/ole": "^v1.0.0",
+        "pear/pear-core-minimal": "^v1.10.15"
+    },
+    "require-dev": {
+        "codeigniter/coding-standard": "^1.8.1",
+        "nexusphp/tachycardia": "^2.0",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^1.11",
+        "phpstan/phpstan-strict-rules": "^1.6",
+        "phpunit/phpcov": "^9.0.2 || ^10.0",
+        "phpunit/phpunit": "^10.5.16 || ^11.2",
+        "rector/rector": "1.1.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "PHPDevsr\\Spreadsheet\\": "src"
+        },
+        "psr-0": {
+            "OLE": "vendor/pear/ole/OLE"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "bash admin/setup.sh"
+        ],
+        "reci": [
+            "Composer\\Config::disableProcessTimeout",
+            "@cs",
+            "@analyze",
+            "@test"
+        ],
+        "analyze": [
+            "@phpstan",
+            "@rector"
+        ],
+        "cs-fix": "vendor/bin/php-cs-fixer fix --ansi --verbose --diff",
+        "cs": "vendor/bin/php-cs-fixer fix --ansi --verbose --dry-run --diff",
+        "rector": "vendor/bin/rector process --dry-run",
+        "phpstan": "bash -c \"XDEBUG_MODE=off phpstan analyse\"",
+        "test": "vendor/bin/phpunit tests/"
+    }
+}
