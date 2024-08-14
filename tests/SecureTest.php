@@ -24,7 +24,7 @@ final class SecureTest extends TestCase
     /**
      * Folder Support
      */
-    private static string $folderSupport = './tests/_support/';
+    private static string $folderSupport = '';
 
     /**
      * Result of Test
@@ -33,6 +33,7 @@ final class SecureTest extends TestCase
 
     protected function setUp(): void
     {
+        self::$folderSupport       = './tests/_support/';
         self::$folderSupportResult = self::$folderSupport . 'result/';
     }
 
