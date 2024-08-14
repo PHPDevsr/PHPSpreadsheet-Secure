@@ -24,7 +24,7 @@
 	</coverage>
 
 	<testsuites>
-		<testsuite name="App">
+		<testsuite name="main">
 			<directory>./tests</directory>
 		</testsuite>
 	</testsuites>
