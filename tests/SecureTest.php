@@ -33,6 +33,8 @@ final class SecureTest extends TestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         self::$folderSupport       = './tests/_support/';
         self::$folderSupportResult = self::$folderSupport . 'result/';
     }
