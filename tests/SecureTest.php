@@ -46,38 +46,40 @@ final class SecureTest extends TestCase
      */
     public static function provideExcel()
     {
+        $PHPID = PHP_VERSION_ID;
+
         yield from [
             'Excel 2024' => [
                 'checkFiles'    => 'excel2024.xlsx',
-                'expectedFiles' => 'excel2024_result.xlsx',
+                'expectedFiles' => 'excel2024_result' . $PHPID . '.xlsx',
             ],
             'Excel 2024 - Strict' => [
                 'checkFiles'    => 'excel2024strict.xlsx',
-                'expectedFiles' => 'excel2024strict_result.xlsx',
+                'expectedFiles' => 'excel2024strict_result' . $PHPID . '.xlsx',
             ],
             'Excel Macro' => [
                 'checkFiles'    => 'excelmacro.xlsm',
-                'expectedFiles' => 'excelmacro_result.xlsm',
+                'expectedFiles' => 'excelmacro_result' . $PHPID . '.xlsm',
             ],
             'Excel Binary' => [
                 'checkFiles'    => 'excelbinary.xlsb',
-                'expectedFiles' => 'excelbinary_result.xlsb',
+                'expectedFiles' => 'excelbinary_result' . $PHPID . '.xlsb',
             ],
             'Excel 97-2003' => [
                 'checkFiles'    => 'excel97.xls',
-                'expectedFiles' => 'excel97_result.xls',
+                'expectedFiles' => 'excel97_result' . $PHPID . '.xls',
             ],
             'Excel 95' => [
                 'checkFiles'    => 'excel95.xls',
-                'expectedFiles' => 'excel95_result.xls',
+                'expectedFiles' => 'excel95_result' . $PHPID . '.xls',
             ],
             'CSV UTF-8' => [
                 'checkFiles'    => 'csvutf8.csv',
-                'expectedFiles' => 'csvutf8_result.csv',
+                'expectedFiles' => 'csvutf8_result' . $PHPID . '.csv',
             ],
             'CSV Unknown' => [
                 'checkFiles'    => 'csvunknown.csv',
-                'expectedFiles' => 'csvunknown_result.csv',
+                'expectedFiles' => 'csvunknown_result' . $PHPID . '.csv',
             ],
         ];
     }
@@ -85,13 +87,13 @@ final class SecureTest extends TestCase
     #[DataProvider('provideExcel')]
     public static function testEncryptor(string $checkFiles = '', string $expectedFiles = ''): void
     {
-        if (is_file(self::$folderSupportResult . $expectedFiles)) {
-            unlink(self::$folderSupportResult . $expectedFiles);
-        }
-
         (new Secure())->setFile(self::$folderSupport . $checkFiles)->setPassword('111')->output(self::$folderSupportResult . $expectedFiles);
 
         self::assertFileExists(self::$folderSupportResult . $expectedFiles);
+
+        if (is_file(self::$folderSupportResult . $expectedFiles)) {
+            unlink(self::$folderSupportResult . $expectedFiles);
+        }
     }
 
     public static function testEncryptorWithBinaryData(): void
