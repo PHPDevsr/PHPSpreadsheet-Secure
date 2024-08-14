@@ -11,7 +11,6 @@
 
 namespace Tests;
 
-use DateTimeImmutable;
 use PHPDevsr\Spreadsheet\Secure;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -36,22 +35,20 @@ final class SecureTest extends TestCase
         self::$folderSupport       = './tests/_support/';
         self::$folderSupportResult = self::$folderSupport . 'result/';
 
-        if ($handlePath = opendir(self::$folderSupportResult)) {
-            $date = new DateTimeImmutable();
-
-            while (false !== ($file = readdir($handlePath))) {
-                if ($file === '.' || $file === '..' || $file === '.gitkeep') {
-                    continue;
-                }
-
-                $fileLastModified = filemtime(self::$folderSupportResult . $file);
-
-                if ($date->getTimestamp() > $fileLastModified && is_file(self::$folderSupportResult . $file)) {
-                    unlink(self::$folderSupportResult . $file);
-                }
-            }
-
-            closedir($handlePath);
+        if (is_file(self::$folderSupportResult . 'result.xlsx')) {
+            unlink(self::$folderSupportResult . 'result.xlsx');
+        }
+        if (is_file(self::$folderSupportResult . 'result.xlsm')) {
+            unlink(self::$folderSupportResult . 'result.xlsm');
+        }
+        if (is_file(self::$folderSupportResult . 'result.xlsb')) {
+            unlink(self::$folderSupportResult . 'result.xlsb');
+        }
+        if (is_file(self::$folderSupportResult . 'result.xls')) {
+            unlink(self::$folderSupportResult . 'result.xls');
+        }
+        if (is_file(self::$folderSupportResult . 'result.csv')) {
+            unlink(self::$folderSupportResult . 'result.csv');
         }
     }
 
@@ -60,35 +57,35 @@ final class SecureTest extends TestCase
         yield from [
             'Excel 2024' => [
                 'checkFiles'    => 'excel2024.xlsx',
-                'expectedFiles' => 'excel2024_result.xlsx',
+                'expectedFiles' => 'result.xlsx',
             ],
             'Excel 2024 - Strict' => [
                 'checkFiles'    => 'excel2024strict.xlsx',
-                'expectedFiles' => 'excel2024strict_result.xlsx',
+                'expectedFiles' => 'result.xlsx',
             ],
             'Excel Macro' => [
                 'checkFiles'    => 'excelmacro.xlsm',
-                'expectedFiles' => 'excelmacro_result.xlsm',
+                'expectedFiles' => 'result.xlsm',
             ],
             'Excel Binary' => [
                 'checkFiles'    => 'excelbinary.xlsb',
-                'expectedFiles' => 'excelbinary_result.xlsb',
+                'expectedFiles' => 'result.xlsb',
             ],
             'Excel 97-2003' => [
                 'checkFiles'    => 'excel97.xls',
-                'expectedFiles' => 'excel97_result.xls',
+                'expectedFiles' => 'result.xls',
             ],
             'Excel 95' => [
                 'checkFiles'    => 'excel95.xls',
-                'expectedFiles' => 'excel95_result.xls',
+                'expectedFiles' => 'result.xls',
             ],
             'CSV UTF-8' => [
                 'checkFiles'    => 'csvutf8.csv',
-                'expectedFiles' => 'csvutf8_result.csv',
+                'expectedFiles' => 'result.csv',
             ],
             'CSV Unknown' => [
                 'checkFiles'    => 'csvunknown.csv',
-                'expectedFiles' => 'csvunknown_result.csv',
+                'expectedFiles' => 'result.csv',
             ],
         ];
     }
