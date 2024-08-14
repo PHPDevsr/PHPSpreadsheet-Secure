@@ -11,6 +11,7 @@
 
 namespace Tests;
 
+use Generator;
 use PHPDevsr\Spreadsheet\Secure;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -35,28 +36,12 @@ final class SecureTest extends TestCase
         self::$folderSupportResult = self::$folderSupport . 'result/';
     }
 
-    protected function tearDown(): void
-    {
-        self::$folderSupportResult = self::$folderSupport . 'result/';
-
-        if (is_file(self::$folderSupportResult . 'result.xlsx')) {
-            unlink(self::$folderSupportResult . 'result.xlsx');
-        }
-        if (is_file(self::$folderSupportResult . 'result.xlsm')) {
-            unlink(self::$folderSupportResult . 'result.xlsm');
-        }
-        if (is_file(self::$folderSupportResult . 'result.xlsb')) {
-            unlink(self::$folderSupportResult . 'result.xlsb');
-        }
-        if (is_file(self::$folderSupportResult . 'result.xls')) {
-            unlink(self::$folderSupportResult . 'result.xls');
-        }
-        if (is_file(self::$folderSupportResult . 'result.csv')) {
-            unlink(self::$folderSupportResult . 'result.csv');
-        }
-    }
-
-    public static function dataProviderExcel(): iterable
+    /**
+     * Provider Excel
+     *
+     * @return Generator<string, array<string, string>>
+     */
+    public static function provideExcel()
     {
         yield from [
             'Excel 2024' => [
@@ -94,9 +79,13 @@ final class SecureTest extends TestCase
         ];
     }
 
-    #[DataProvider('dataProviderExcel')]
+    #[DataProvider('provideExcel')]
     public static function testEncryptor(string $checkFiles = '', string $expectedFiles = ''): void
     {
+        if (is_file(self::$folderSupportResult . $expectedFiles)) {
+            unlink(self::$folderSupportResult . $expectedFiles);
+        }
+
         (new Secure())->setFile(self::$folderSupport . $checkFiles)->setPassword('111')->output(self::$folderSupportResult . $expectedFiles);
 
         self::assertFileExists(self::$folderSupportResult . $expectedFiles);
