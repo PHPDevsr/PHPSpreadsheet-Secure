@@ -46,11 +46,8 @@
 	</logging>
     <source>
         <include>
-            <directory suffix=".php">tests</directory>
+            <directory suffix=".php">src</directory>
         </include>
-        <exclude>
-            <directory suffix=".php">tests/_support</directory>
-        </exclude>
     </source>
 	<php>
         <ini name="date.timezone" value="UTC" />
