@@ -46,35 +46,35 @@ final class SecureTest extends TestCase
         yield from [
             'Excel 2024' => [
                 'checkFiles'    => 'excel2024.xlsx',
-                'expectedFiles' => 'result.xlsx',
+                'expectedFiles' => 'excel2024_result.xlsx',
             ],
             'Excel 2024 - Strict' => [
                 'checkFiles'    => 'excel2024strict.xlsx',
-                'expectedFiles' => 'result.xlsx',
+                'expectedFiles' => 'excel2024strict_result.xlsx',
             ],
             'Excel Macro' => [
                 'checkFiles'    => 'excelmacro.xlsm',
-                'expectedFiles' => 'result.xlsm',
+                'expectedFiles' => 'excelmacro_result.xlsm',
             ],
             'Excel Binary' => [
                 'checkFiles'    => 'excelbinary.xlsb',
-                'expectedFiles' => 'result.xlsb',
+                'expectedFiles' => 'excelbinary_result.xlsb',
             ],
             'Excel 97-2003' => [
                 'checkFiles'    => 'excel97.xls',
-                'expectedFiles' => 'result.xls',
+                'expectedFiles' => 'excel97_result.xls',
             ],
             'Excel 95' => [
                 'checkFiles'    => 'excel95.xls',
-                'expectedFiles' => 'result.xls',
+                'expectedFiles' => 'excel95_result.xls',
             ],
             'CSV UTF-8' => [
                 'checkFiles'    => 'csvutf8.csv',
-                'expectedFiles' => 'result.csv',
+                'expectedFiles' => 'csvutf8_result.csv',
             ],
             'CSV Unknown' => [
                 'checkFiles'    => 'csvunknown.csv',
-                'expectedFiles' => 'result.csv',
+                'expectedFiles' => 'csvunknown_result.csv',
             ],
         ];
     }
