@@ -23,7 +23,7 @@ final class SecureTest extends TestCase
     /**
      * Folder Support
      */
-    private static string $folderSupport = '';
+    private static string $folderSupport = './tests/_support/';
 
     /**
      * Result of Test
@@ -32,7 +32,11 @@ final class SecureTest extends TestCase
 
     protected function setUp(): void
     {
-        self::$folderSupport       = './tests/_support/';
+        self::$folderSupportResult = self::$folderSupport . 'result/';
+    }
+
+    protected function tearDown(): void
+    {
         self::$folderSupportResult = self::$folderSupport . 'result/';
 
         if (is_file(self::$folderSupportResult . 'result.xlsx')) {
