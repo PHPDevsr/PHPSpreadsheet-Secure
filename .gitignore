@@ -54,6 +54,8 @@ tests/coverage*
 
 # Don't save phpunit under version control.
 phpunit
+tests/_support/result/*
+!tests/_support/result/.gitkeep
 
 #-------------------------
 # Composer
