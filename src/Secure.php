@@ -442,7 +442,7 @@ class Secure
     {
         $algorithm = strtolower($algorithm);
 
-        $buffers = array_merge([], ...$buffers);
+        $buffers = [...$buffers];
 
         if (! in_array($algorithm, hash_algos(), true)) {
             throw new Exception("Hash algorithm '{$algorithm}' not supported!");
@@ -544,11 +544,12 @@ class Secure
             $inputCount = 0;
 
             foreach ($in as $i => $inputChunk) {
+                $lengthInputChunk = count($inputChunk);
                 // Grab the next chunk
-                $inputCount += count($inputChunk);
-                $remainder = count($inputChunk) % $blockSize;
+                $inputCount += $lengthInputChunk;
+                $remainder = $lengthInputChunk % $blockSize;
                 if ($remainder !== 0) {
-                    $inputChunk = array_pad($inputChunk, count($inputChunk) + (16 - $remainder), 0);
+                    $inputChunk = array_pad($inputChunk, $lengthInputChunk + (16 - $remainder), 0);
                 }
                 // Create the initialization vector
                 $iv = $this->_createIV($hashAlgorithm, $saltValue, $blockSize, $i);
