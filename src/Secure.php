@@ -172,7 +172,7 @@ class Secure
 
         // Create the data integrity fields used by clients for integrity checks.
         // First generate a random array of bytes to use in HMAC. The docs say to use the same length as the key salt, but Excel seems to use 64.
-        $hmacKey = unpack('C*', random_bytes(64));
+        $hmacKey = (array) unpack('C*', random_bytes(64));
         // Then create an initialization vector using the package encryption info and the appropriate block key.
         $hmacKeyIV = $this->_createIV(
             $encryptionInfo['package']['hashAlgorithm'],
@@ -321,7 +321,7 @@ class Secure
     /**
      * Encryption Info
      *
-     * @param array<string, mixed> $encryptionInfo Data
+     * @param array<string, array<string, array<string, int|string>>> $encryptionInfo Data
      *
      * @return array<string, mixed>
      */
@@ -445,7 +445,7 @@ class Secure
         $buffers = [...$buffers];
 
         if (! in_array($algorithm, hash_algos(), true)) {
-            throw new Exception("Hash algorithm '{$algorithm}' not supported!");
+            throw new Exception("Hash algorithm '{$algorithm}' not supported!"); // @codeCoverageIgnore
         }
 
         $ctx = hash_init($algorithm);
@@ -455,9 +455,18 @@ class Secure
         return unpack('C*', hash_final($ctx, true));
     }
 
+    /**
+     * Hmac
+     *
+     * @param string       $algorithm Algorithm
+     * @param list<string> $key       Key
+     * @param string       $fileName  Filename
+     *
+     * @return list<string>
+     */
     private function _hmac($algorithm, $key, $fileName)
     {
-        return unpack('C*', hash_hmac_file(
+        return (array) unpack('C*', hash_hmac_file(
             strtolower($algorithm),
             $fileName,
             pack('C*', ...$key),
@@ -582,6 +591,8 @@ class Secure
      *
      * @param array<string, mixed> $data     Data
      * @param SimpleXMLElement     $rootNode Node
+     *
+     * @return void
      */
     private function build($data, $rootNode)
     {

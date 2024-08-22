@@ -9,80 +9,8 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
 	// identifier: offsetAccess.nonOffsetAccessible
-	'message' => '#^Cannot access offset \'blockSize\' on mixed\\.$#',
-	'count' => 2,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	// identifier: offsetAccess.nonOffsetAccessible
-	'message' => '#^Cannot access offset \'cipherAlgorithm\' on mixed\\.$#',
-	'count' => 2,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	// identifier: offsetAccess.nonOffsetAccessible
-	'message' => '#^Cannot access offset \'cipherChaining\' on mixed\\.$#',
-	'count' => 2,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	// identifier: offsetAccess.nonOffsetAccessible
-	'message' => '#^Cannot access offset \'encryptedHmacKey\' on mixed\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	// identifier: offsetAccess.nonOffsetAccessible
-	'message' => '#^Cannot access offset \'encryptedHmacValue\' on mixed\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	// identifier: offsetAccess.nonOffsetAccessible
-	'message' => '#^Cannot access offset \'encryptedKeyValue\' on mixed\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	// identifier: offsetAccess.nonOffsetAccessible
-	'message' => '#^Cannot access offset \'encryptedVerifierHa…\' on mixed\\.$#',
-	'count' => 2,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	// identifier: offsetAccess.nonOffsetAccessible
-	'message' => '#^Cannot access offset \'hashAlgorithm\' on mixed\\.$#',
-	'count' => 2,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	// identifier: offsetAccess.nonOffsetAccessible
-	'message' => '#^Cannot access offset \'hashSize\' on mixed\\.$#',
-	'count' => 2,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	// identifier: offsetAccess.nonOffsetAccessible
-	'message' => '#^Cannot access offset \'keyBits\' on mixed\\.$#',
-	'count' => 2,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	// identifier: offsetAccess.nonOffsetAccessible
 	'message' => '#^Cannot access offset \'name\' on mixed\\.$#',
 	'count' => 3,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	// identifier: offsetAccess.nonOffsetAccessible
-	'message' => '#^Cannot access offset \'saltValue\' on mixed\\.$#',
-	'count' => 4,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	// identifier: offsetAccess.nonOffsetAccessible
-	'message' => '#^Cannot access offset \'spinCount\' on mixed\\.$#',
-	'count' => 1,
 	'path' => __DIR__ . '/src/Secure.php',
 ];
 $ignoreErrors[] = [
@@ -290,36 +218,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Secure.php',
 ];
 $ignoreErrors[] = [
-	// identifier: missingType.return
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_hmac\\(\\) has no return type specified\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	// identifier: missingType.parameter
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_hmac\\(\\) has parameter \\$algorithm with no type specified\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	// identifier: missingType.parameter
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_hmac\\(\\) has parameter \\$fileName with no type specified\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	// identifier: missingType.parameter
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_hmac\\(\\) has parameter \\$key with no type specified\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	// identifier: missingType.return
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:build\\(\\) has no return type specified\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
 	// identifier: return.type
 	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:output\\(\\) should return string but returns string\\|false\\.$#',
 	'count' => 1,
@@ -329,12 +227,6 @@ $ignoreErrors[] = [
 	// identifier: argument.unpackNonIterable
 	'message' => '#^Only iterables can be unpacked, array\\|false given in argument \\#2\\.$#',
 	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	// identifier: argument.unpackNonIterable
-	'message' => '#^Only iterables can be unpacked, mixed given in argument \\#2\\.$#',
-	'count' => 7,
 	'path' => __DIR__ . '/src/Secure.php',
 ];
 $ignoreErrors[] = [
@@ -412,7 +304,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	// identifier: argument.type
 	'message' => '#^Parameter \\#1 \\$value of function count expects array\\|Countable, mixed given\\.$#',
-	'count' => 5,
+	'count' => 1,
 	'path' => __DIR__ . '/src/Secure.php',
 ];
 $ignoreErrors[] = [
