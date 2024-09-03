@@ -441,8 +441,7 @@ class Secure
     private function _hash($algorithm, ...$buffers)
     {
         $algorithm = strtolower($algorithm);
-
-        $buffers = [...$buffers];
+        $buffers   = array_merge([], ...$buffers);
 
         if (! in_array($algorithm, hash_algos(), true)) {
             throw new Exception("Hash algorithm '{$algorithm}' not supported!"); // @codeCoverageIgnore
@@ -506,10 +505,11 @@ class Secure
         $key = $this->_hash($hashAlgorithm, $key, $blockKey);
 
         // Truncate or pad as needed to get to length of keyBits
-        $keyBytes = $keyBits / 8;
-        if (count($key) < $keyBytes) {
+        $keyBytes   = $keyBits / 8;
+        $keyCounter = count($key);
+        if ($keyCounter < $keyBytes) {
             $key = array_pad($key, $keyBytes, 0x36);
-        } elseif (count($key) > $keyBytes) {
+        } elseif ($keyCounter > $keyBytes) {
             $key = array_slice($key, 0, $keyBytes);
         }
 
