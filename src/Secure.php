@@ -17,6 +17,7 @@ use OLE;
 use OLE_PPS_File;
 use OLE_PPS_Root;
 use SimpleXMLElement;
+use ValueError;
 
 class Secure
 {
@@ -468,13 +469,11 @@ class Secure
      */
     private function _hash($algorithm, ...$buffers)
     {
-        $buffers = [...[], ...$buffers];
-
-        if (! in_array($algorithm, hash_algos(), true)) {
-            throw new Exception("Hash algorithm '{$algorithm}' not supported!"); // @codeCoverageIgnore
+        try {
+            $ctx = hash_init($algorithm);
+        } catch (ValueError) {
+            throw new Exception(sprintf("Hash algorithm '%s' not supported!", $algorithm));
         }
-
-        $ctx = hash_init($algorithm);
 
         hash_update($ctx, pack('C*', ...$buffers));
 
