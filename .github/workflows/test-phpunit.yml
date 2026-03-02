@@ -68,7 +68,7 @@ jobs:
           fi
 
       - name: Test with PHPUnit
-        run: vendor/bin/phpunit --coverage-text --coverage-html build/phpunit/html --coverage-clover build/phpunit/logs/clover.xml --coverage-php build/phpunit/cov/coverage.cov --testsuite main
+        run: vendor/bin/phpunit --coverage-text --coverage-html build/html --coverage-clover build/logs/clover.xml --coverage-php build/cov/coverage.cov --testsuite main
         env:
           TERM: xterm-256color
           TACHYCARDIA_MONITOR_GA: enabled
@@ -77,12 +77,12 @@ jobs:
         name: Merge Coveralls
         continue-on-error: true
         run: |
-          vendor/bin/phpcov merge --clover build/phpunit/logs/clover.xml build/phpunit/cov
+          vendor/bin/phpcov merge --clover build/logs/clover.xml build/cov
 
       - if: matrix.php-versions == '8.2'
         name: Upload coverage to Coveralls
         run: |
           composer global require php-coveralls/php-coveralls
-          php-coveralls --coverage_clover=build/phpunit/logs/clover.xml --verbose --exclude-no-stmt --ansi
+          php-coveralls --verbose --exclude-no-stmt --ansi
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
