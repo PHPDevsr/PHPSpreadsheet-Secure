@@ -148,7 +148,7 @@ final class SecureTest extends TestCase
     public function testCryptInternalFunction(): void
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage("Hash algorithm 'invalid-algo' not supported!");
+        $this->expectExceptionMessage('Unknown cipher chaining: invalid-chaining');
 
         $str = new Secure();
         $str->_crypt(true, 'AES', 'invalid-chaining', [], [], []);
