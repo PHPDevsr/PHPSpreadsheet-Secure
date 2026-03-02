@@ -19,12 +19,12 @@ use OLE_PPS_Root;
 use SimpleXMLElement;
 use ValueError;
 
-class Secure
+final class Secure
 {
     /**
      * Data Binary
      */
-    public Closure $data;
+    private ?Closure $data = null;
 
     /**
      * Password
@@ -619,7 +619,7 @@ class Secure
                 unset($inputChunk, $outputChunk, $iv);
             }
 
-            unset($this->data);
+            $this->data = null;
 
             file_put_contents($tmpFileHeaderLength, pack('C*', ...$this->_createUInt32LEBuffer($inputCount, $this->_offset)));
 
