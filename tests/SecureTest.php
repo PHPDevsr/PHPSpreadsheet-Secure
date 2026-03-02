@@ -133,7 +133,7 @@ final class SecureTest extends TestCase
 
         fclose($fp);
 
-        (new Secure(false))->setFile($binaryData)->setPassword('111')->output();
+        (new Secure(false))->setPassword('111')->output();
     }
 
     public function testHashInternalFunction(): void
