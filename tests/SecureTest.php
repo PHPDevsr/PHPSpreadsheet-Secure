@@ -39,12 +39,24 @@ final class SecureTest extends TestCase
         self::$folderSupportResult = self::$folderSupport . 'result/';
     }
 
+    #[DataProvider('provideEncryptor')]
+    public static function testEncryptor(string $checkFiles = '', string $expectedFiles = ''): void
+    {
+        (new Secure())->setFile(self::$folderSupport . $checkFiles)->setPassword('111')->output(self::$folderSupportResult . $expectedFiles);
+
+        self::assertFileExists(self::$folderSupportResult . $expectedFiles);
+
+        if (is_file(self::$folderSupportResult . $expectedFiles)) {
+            unlink(self::$folderSupportResult . $expectedFiles);
+        }
+    }
+
     /**
      * Provider Excel
      *
      * @return Generator<string, array<string, string>>
      */
-    public static function provideExcel()
+    public static function provideEncryptor(): iterable
     {
         $PHPID = PHP_VERSION_ID;
 
@@ -82,18 +94,6 @@ final class SecureTest extends TestCase
                 'expectedFiles' => 'csvunknown_result' . $PHPID . '.csv',
             ],
         ];
-    }
-
-    #[DataProvider('provideExcel')]
-    public static function testEncryptor(string $checkFiles = '', string $expectedFiles = ''): void
-    {
-        (new Secure())->setFile(self::$folderSupport . $checkFiles)->setPassword('111')->output(self::$folderSupportResult . $expectedFiles);
-
-        self::assertFileExists(self::$folderSupportResult . $expectedFiles);
-
-        if (is_file(self::$folderSupportResult . $expectedFiles)) {
-            unlink(self::$folderSupportResult . $expectedFiles);
-        }
     }
 
     public static function testEncryptorWithBinaryData(): void

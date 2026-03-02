@@ -17,6 +17,7 @@ use OLE;
 use OLE_PPS_File;
 use OLE_PPS_Root;
 use SimpleXMLElement;
+use ValueError;
 
 class Secure
 {
@@ -470,8 +471,8 @@ class Secure
     {
         try {
             $ctx = hash_init($algorithm);
-        } catch (\ValueError $e) {
-            throw new \Exception("Hash algorithm '{$algorithm}' not supported!");
+        } catch (ValueError $e) {
+            throw new Exception("Hash algorithm '{$algorithm}' not supported!");
         }
 
         hash_update($ctx, pack('C*', ...$buffers));
