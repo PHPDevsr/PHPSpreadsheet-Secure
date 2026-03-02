@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of PHPDevsr/PHPSpreadsheet-Secure.
  *
@@ -83,7 +85,7 @@ class Secure
      *
      * @return $this
      */
-    public function setFile($data = '')
+    public function setFile($data = ''): static
     {
         if ($this->NOFILE) {
             $this->data = (static function () use ($data) {
@@ -101,6 +103,7 @@ class Secure
             while (! feof($fp)) {
                 yield (array) unpack('C*', (string) fread($fp, 4096));
             }
+
             fclose($fp);
             unset($fp);
         });
@@ -115,7 +118,7 @@ class Secure
      *
      * @return $this
      */
-    public function setPassword(string $password = '')
+    public function setPassword(string $password = ''): static
     {
         $this->password = $password;
 
@@ -129,7 +132,7 @@ class Secure
      *
      * @return string
      */
-    public function output(?string $filePath = null)
+    public function output(?string $filePath = null): false|string
     {
         if (! $this->NOFILE && null === $filePath) {
             throw new Exception('Output filepath cannot be NULL when NOFILE is false');
@@ -305,6 +308,7 @@ class Secure
 
         $OLE2 = new OLE_PPS_File(OLE::Asc2Ucs('EncryptedPackage'));
         $OLE2->init();
+
         $filesize = (int) filesize($encryptedPackage['tmpFile']);
 
         for ($i = 0; $i < ($filesize / 4096); $i++) {
@@ -334,7 +338,7 @@ class Secure
      *
      * @return array<string, mixed>
      */
-    private function _buildEncryptionInfo(array $encryptionInfo = [])
+    private function _buildEncryptionInfo(array $encryptionInfo = []): array
     {
         $ENCRYPTION_INFO_PREFIX = [0x04, 0x00, 0x04, 0x00, 0x40, 0x00, 0x00, 0x00];
 
@@ -414,10 +418,8 @@ class Secure
      * Define a function that converts array to xml
      *
      * @param array<string, mixed> $array Array
-     *
-     * @return string
      */
-    private function arrayToXml(array $array = [])
+    private function arrayToXml(array $array = []): string
     {
         $this->build($rootNode = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><encryption/>'), $array);
 
@@ -427,21 +429,22 @@ class Secure
     /**
      * Crypt method
      *
-     * @param string                        $cipherAlgorithm
      * @param string                        $cipherChaining
      * @param array                         $key
      * @param bool                          $encrypt
      * @param array<int|string, int|string> $iv
      * @param array<int|string, int|string> $input
+     *
+     * @return list<mixed>
      */
-    private function _crypt($encrypt, $cipherAlgorithm, $cipherChaining, $key, $iv, $input)
+    private function _crypt($encrypt, string $cipherAlgorithm, $cipherChaining, $key, $iv, $input): array
     {
         $algorithm = $cipherAlgorithm . '-' . (count($key) * 8);
 
         if ($cipherChaining === 'ChainingModeCBC') {
             $algorithm .= '-cbc';
         } else {
-            throw new Exception("Unknown cipher chaining: {$cipherChaining}");
+            throw new Exception('Unknown cipher chaining: ' . $cipherChaining);
         }
 
         $cipher = [];
@@ -463,16 +466,14 @@ class Secure
     /**
      * Hashing
      *
-     * @param string $algorithm
-     *
      * @return array<int|string, int|string>
      */
-    private function _hash($algorithm, ...$buffers)
+    private function _hash(string $algorithm, ...$buffers): array
     {
         try {
             $ctx = hash_init($algorithm);
-        } catch (ValueError $e) {
-            throw new Exception("Hash algorithm '{$algorithm}' not supported!");
+        } catch (ValueError) {
+            throw new Exception(sprintf("Hash algorithm '%s' not supported!", $algorithm));
         }
 
         hash_update($ctx, pack('C*', ...$buffers));
@@ -489,7 +490,7 @@ class Secure
      *
      * @return array<int|string, int|string>
      */
-    private function _hmac($algorithm, $key, $fileName)
+    private function _hmac($algorithm, $key, $fileName): array
     {
         return (array) unpack('C*', hash_hmac_file(
             $algorithm,
@@ -501,19 +502,16 @@ class Secure
 
     /**
      * Create Unsigned Integer 32-bit Buffer
-     *
-     * @param int $value
-     * @param int $bufferSize
      */
-    private function _createUInt32LEBuffer($value, $bufferSize = 4)
+    private function _createUInt32LEBuffer(int $value, int $bufferSize = 4): array
     {
         return array_pad(array_values((array) unpack('C*', pack('V', $value))), $bufferSize, 0);
     }
 
-    private function _convertPasswordToKey($password, $hashAlgorithm, $saltValue, $spinCount, $keyBits, $blockKey)
+    private function _convertPasswordToKey(string $password, $hashAlgorithm, array $saltValue, int $spinCount, int $keyBits, $blockKey)
     {
         // Password must be in unicode buffer
-        $passwordBuffer = array_map('hexdec', str_split(bin2hex(mb_convert_encoding($password, 'UTF-16LE', 'utf-8')), 2));
+        $passwordBuffer = array_map(hexdec(...), str_split(bin2hex(mb_convert_encoding($password, 'UTF-16LE', 'utf-8')), 2));
 
         // Generate the initial hash
         $key = $this->_hash($hashAlgorithm, $saltValue, $passwordBuffer);
@@ -523,7 +521,7 @@ class Secure
 
         // Now regenerate until spin count
         for ($i = 0; $i < $spinCount; $i++) {
-            $bKey = hash($hashAlgorithm, pack('V', $i) . $bKey, true);
+            $bKey = hash((string) $hashAlgorithm, pack('V', $i) . $bKey, true);
         }
 
         // Convert binary string back to unpacked C* form
@@ -574,24 +572,21 @@ class Secure
     /**
      * Package Crypt
      *
-     * @param bool                          $encrypt
      * @param string                        $cipherAlgorithm
-     * @param string                        $cipherChaining
      * @param string                        $hashAlgorithm
-     * @param int                           $blockSize
      * @param array<int|string, int|string> $saltValue
      * @param mixed                         $input
      * @param array<int|string, int|string> $key
      */
     private function _cryptPackage(
-        $encrypt,
+        bool $encrypt,
         $cipherAlgorithm,
-        $cipherChaining,
+        string $cipherChaining,
         $hashAlgorithm,
-        $blockSize,
-        $saltValue,
-        $input,
-        $key = [],
+        int $blockSize,
+        array $saltValue,
+        ?Closure $input,
+        array $key = [],
     ) {
         $tmpOutputChunk      = (string) tempnam(sys_get_temp_dir(), 'outputChunk');
         $tmpFileHeaderLength = (string) tempnam(sys_get_temp_dir(), 'fileHeaderLength');
@@ -608,6 +603,7 @@ class Secure
                 if ($remainder !== 0) {
                     $inputChunk = array_pad($inputChunk, $lengthInputChunk + (16 - $remainder), 0);
                 }
+
                 // Create the initialization vector
                 $iv = $this->_createIV($hashAlgorithm, $saltValue, $blockSize, $i);
 
@@ -639,10 +635,8 @@ class Secure
      *
      * @param array<string, array<string, array<string, string>|string>|int|string> $data     Data
      * @param SimpleXMLElement                                                      $rootNode Node
-     *
-     * @return void
      */
-    private function build(SimpleXMLElement $rootNode, array $data = [])
+    private function build(SimpleXMLElement $rootNode, array $data = []): void
     {
         // https://stackoverflow.com/questions/7717227/unable-to-add-attribute-with-namespace-prefix-using-php-simplexml
         foreach ($data as $k => $v) {
@@ -657,6 +651,7 @@ class Secure
                             $rootNode->addAttribute($kk, $vv);
                         }
                     }
+
                     if ($k === 'children') {
                         $isNamespace = count(explode(':', $vv['name'])) === 2;
                         $r           = $isNamespace ? $rootNode->addChild('xmlns:' . $vv['name'], '') : $rootNode->addChild($vv['name'], '');

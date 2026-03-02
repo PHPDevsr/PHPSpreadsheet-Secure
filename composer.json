@@ -29,14 +29,14 @@
         "pear/pear-core-minimal": "^v1.10.15"
     },
     "require-dev": {
-        "codeigniter/coding-standard": "^1.8.1",
-        "nexusphp/tachycardia": "^2.0",
+        "codeigniter/coding-standard": "^1.9.1",
+        "nexusphp/tachycardia": "^2.4",
         "phpstan/extension-installer": "^1.4",
-        "phpstan/phpstan": "^2.1.11",
-        "phpstan/phpstan-strict-rules": "^2.0.4",
-        "phpunit/phpcov": "^9.0.2 || ^10.0",
-        "phpunit/phpunit": "^10.5.16 || ^11.2",
-        "rector/rector": "2.0.11"
+        "phpstan/phpstan": "^2.1.40",
+        "phpstan/phpstan-strict-rules": "^2.0.10",
+        "phpunit/phpcov": "^9.0.2 || ^10.0.1 || ^11.0.4",
+        "phpunit/phpunit": "^10.5.16 || ^11.5",
+        "rector/rector": "2.3.8"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
