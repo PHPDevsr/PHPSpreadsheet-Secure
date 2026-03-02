@@ -128,7 +128,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Secure.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$string of function bin2hex expects string, array\\<int, string\\>\\|string\\|false given\\.$#',
+	'message' => '#^Parameter \\#1 \\$string of function bin2hex expects string, array\\|string given\\.$#',
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Secure.php',

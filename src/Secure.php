@@ -24,7 +24,7 @@ class Secure
     /**
      * Data Binary
      */
-    public Closure $data;
+    public ?Closure $data = null;
 
     /**
      * Password
@@ -619,7 +619,7 @@ class Secure
                 unset($inputChunk, $outputChunk, $iv);
             }
 
-            unset($this->data);
+            $this->data = null;
 
             file_put_contents($tmpFileHeaderLength, pack('C*', ...$this->_createUInt32LEBuffer($inputCount, $this->_offset)));
 
