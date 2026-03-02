@@ -11,6 +11,7 @@
 
 namespace Tests;
 
+use Exception;
 use Generator;
 use PHPDevsr\Spreadsheet\Secure;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -113,5 +114,43 @@ final class SecureTest extends TestCase
         $str = (new Secure(true))->setFile($binaryData)->setPassword('111')->output();
 
         self::assertSame(12288, strlen($str));
+    }
+
+    public function testExceptionNOFILE(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Output filepath cannot be NULL when NOFILE is false');
+
+        $data = self::$folderSupport . 'Book1.xlsx';
+        $fp   = fopen($data, 'rb');
+        $this->assertNotFalse($fp);
+
+        $fileSize = filesize($data);
+        $this->assertNotFalse($fileSize);
+
+        $binaryData = fread($fp, $fileSize);
+        $this->assertNotFalse($binaryData);
+
+        fclose($fp);
+
+        (new Secure(false))->setFile($binaryData)->setPassword('111')->output();
+    }
+
+    public function testHashInternalFunction(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Hash algorithm 'invalid-algo' not supported!");
+
+        $str = new Secure();
+        $str->_hash('invalid-algo', []);
+    }
+
+    public function testCryptInternalFunction(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("Hash algorithm 'invalid-algo' not supported!");
+
+        $str = new Secure();
+        $str->_crypt(true, 'AES', 'invalid-chaining', [], [], []);
     }
 }

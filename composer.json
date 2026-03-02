@@ -80,6 +80,6 @@
         "rector-fix": "vendor/bin/rector process",
         "phpstan": "bash -c \"XDEBUG_MODE=off phpstan analyse\"",
         "phpstan-baseline": "bash -c \"XDEBUG_MODE=off phpstan analyse --generate-baseline phpstan-baseline.php\"",
-        "test": "vendor/bin/phpunit --coverage-text --coverage-clover build/logs/clover.xml --coverage-php build/cov/coverage.cov --testsuite main"
+        "test": "vendor/bin/phpunit --coverage-text --coverage-html build/phpunit/html --coverage-clover build/phpunit/logs/clover.xml --coverage-php build/phpunit/cov/coverage.cov --testsuite main"
     }
 }

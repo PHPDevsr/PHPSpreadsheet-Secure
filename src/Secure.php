@@ -432,8 +432,10 @@ final class Secure
      * @param array                         $key
      * @param array<int|string, int|string> $iv
      * @param array<int|string, int|string> $input
+     *
+     * @internal
      */
-    private function _crypt(bool $encrypt, string $cipherAlgorithm, string $cipherChaining, $key, $iv, $input)
+    public function _crypt(bool $encrypt, string $cipherAlgorithm, string $cipherChaining, $key, $iv, $input)
     {
         $algorithm = $cipherAlgorithm . '-' . (count($key) * 8);
 
@@ -464,12 +466,12 @@ final class Secure
      *
      * @return array<int|string, int|string>
      */
-    private function _hash(string $algorithm, ...$buffers)
+    public function _hash(string $algorithm, ...$buffers)
     {
         try {
             $ctx = hash_init($algorithm);
         } catch (ValueError) {
-            throw new Exception(sprintf("Hash algorithm '%s' not supported!", $algorithm));
+            throw new Exception(sprintf("Hash algorithm '%s' not supported!", $algorithm)); // @codeCoverageIgnore
         }
 
         hash_update($ctx, pack('C*', ...$buffers));
