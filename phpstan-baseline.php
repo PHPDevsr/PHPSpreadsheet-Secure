@@ -14,19 +14,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Secure.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_convertPasswordToKey\\(\\) has parameter \\$hashAlgorithm with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_convertPasswordToKey\\(\\) has parameter \\$keyBits with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_convertPasswordToKey\\(\\) has parameter \\$password with no type specified\\.$#',
 	'identifier' => 'missingType.parameter',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Secure.php',
@@ -123,12 +111,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
 	'message' => '#^Parameter \\#1 \\$stream of function fread expects resource, resource\\|false given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$string of function bin2hex expects string, array\\|string given\\.$#',
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Secure.php',

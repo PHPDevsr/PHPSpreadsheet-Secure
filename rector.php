@@ -79,8 +79,8 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->sets([
         SetList::DEAD_CODE,
         SetList::CODE_QUALITY,
-        SetList::STRICT_BOOLEANS,
-        LevelSetList::UP_TO_PHP_80,
+        SetList::CODING_STYLE,
+        LevelSetList::UP_TO_PHP_82,
     ]);
 
     // The paths to refactor (can also be supplied with CLI arguments)
