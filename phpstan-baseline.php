@@ -142,7 +142,7 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Parameter \\#2 \\$length of function fread expects int\\<1, max\\>, int\\<0, max\\> given\\.$#',
 	'identifier' => 'argument.type',
-	'count' => 1,
+	'count' => 2,
 	'path' => __DIR__ . '/tests/SecureTest.php',
 ];
 
