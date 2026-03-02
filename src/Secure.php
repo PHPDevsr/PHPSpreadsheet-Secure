@@ -101,6 +101,7 @@ final class Secure
             while (! feof($fp)) {
                 yield (array) unpack('C*', (string) fread($fp, 4096));
             }
+
             fclose($fp);
             unset($fp);
         });
@@ -305,6 +306,7 @@ final class Secure
 
         $OLE2 = new OLE_PPS_File(OLE::Asc2Ucs('EncryptedPackage'));
         $OLE2->init();
+
         $filesize = (int) filesize($encryptedPackage['tmpFile']);
 
         for ($i = 0; $i < ($filesize / 4096); $i++) {
@@ -324,7 +326,7 @@ final class Secure
 
         $root->save($filePath);
 
-        return file_get_contents($filePath);
+        return (string) file_get_contents($filePath);
     }
 
     /**
@@ -427,21 +429,18 @@ final class Secure
     /**
      * Crypt method
      *
-     * @param string                        $cipherAlgorithm
-     * @param string                        $cipherChaining
      * @param array                         $key
-     * @param bool                          $encrypt
      * @param array<int|string, int|string> $iv
      * @param array<int|string, int|string> $input
      */
-    private function _crypt($encrypt, $cipherAlgorithm, $cipherChaining, $key, $iv, $input)
+    private function _crypt(bool $encrypt, string $cipherAlgorithm, string $cipherChaining, $key, $iv, $input)
     {
         $algorithm = $cipherAlgorithm . '-' . (count($key) * 8);
 
         if ($cipherChaining === 'ChainingModeCBC') {
             $algorithm .= '-cbc';
         } else {
-            throw new Exception("Unknown cipher chaining: {$cipherChaining}");
+            throw new Exception('Unknown cipher chaining: ' . $cipherChaining);
         }
 
         $cipher = [];
@@ -463,11 +462,9 @@ final class Secure
     /**
      * Hashing
      *
-     * @param string $algorithm
-     *
      * @return array<int|string, int|string>
      */
-    private function _hash($algorithm, ...$buffers)
+    private function _hash(string $algorithm, ...$buffers)
     {
         try {
             $ctx = hash_init($algorithm);
@@ -489,7 +486,7 @@ final class Secure
      *
      * @return array<int|string, int|string>
      */
-    private function _hmac($algorithm, $key, $fileName)
+    private function _hmac(string $algorithm, $key, string $fileName)
     {
         return (array) unpack('C*', hash_hmac_file(
             $algorithm,
@@ -501,19 +498,16 @@ final class Secure
 
     /**
      * Create Unsigned Integer 32-bit Buffer
-     *
-     * @param int $value
-     * @param int $bufferSize
      */
-    private function _createUInt32LEBuffer($value, $bufferSize = 4)
+    private function _createUInt32LEBuffer(int $value, int $bufferSize = 4)
     {
         return array_pad(array_values((array) unpack('C*', pack('V', $value))), $bufferSize, 0);
     }
 
-    private function _convertPasswordToKey($password, $hashAlgorithm, $saltValue, $spinCount, $keyBits, $blockKey)
+    private function _convertPasswordToKey(string $password, string $hashAlgorithm, $saltValue, int $spinCount, int $keyBits, $blockKey)
     {
         // Password must be in unicode buffer
-        $passwordBuffer = array_map('hexdec', str_split(bin2hex(mb_convert_encoding($password, 'UTF-16LE', 'utf-8')), 2));
+        $passwordBuffer = array_map(hexdec(...), str_split(bin2hex(mb_convert_encoding($password, 'UTF-16LE', 'utf-8')), 2));
 
         // Generate the initial hash
         $key = $this->_hash($hashAlgorithm, $saltValue, $passwordBuffer);
@@ -547,12 +541,10 @@ final class Secure
     /**
      * Create initialization vector
      *
-     * @param string                        $hashAlgorithm
      * @param array<int|string, int|string> $saltValue
-     * @param int                           $blockSize
      * @param mixed                         $blockKey
      */
-    private function _createIV($hashAlgorithm, $saltValue, $blockSize, $blockKey)
+    private function _createIV(string $hashAlgorithm, $saltValue, int $blockSize, $blockKey)
     {
         // Create the block key from the current index
         if (is_int($blockKey)) {
@@ -574,30 +566,26 @@ final class Secure
     /**
      * Package Crypt
      *
-     * @param bool                          $encrypt
-     * @param string                        $cipherAlgorithm
-     * @param string                        $cipherChaining
-     * @param string                        $hashAlgorithm
-     * @param int                           $blockSize
      * @param array<int|string, int|string> $saltValue
-     * @param mixed                         $input
+     * @param Closure|null                  $input
      * @param array<int|string, int|string> $key
      */
     private function _cryptPackage(
-        $encrypt,
-        $cipherAlgorithm,
-        $cipherChaining,
-        $hashAlgorithm,
-        $blockSize,
+        bool $encrypt,
+        string $cipherAlgorithm,
+        string $cipherChaining,
+        string $hashAlgorithm,
+        int $blockSize,
         $saltValue,
         $input,
         $key = [],
     ) {
-        $tmpOutputChunk      = (string) tempnam(sys_get_temp_dir(), 'outputChunk');
-        $tmpFileHeaderLength = (string) tempnam(sys_get_temp_dir(), 'fileHeaderLength');
-        $tmpFile             = (string) tempnam(sys_get_temp_dir(), 'file');
+        $sysTempDir          = sys_get_temp_dir();
+        $tmpOutputChunk      = (string) tempnam($sysTempDir, 'outputChunk');
+        $tmpFileHeaderLength = (string) tempnam($sysTempDir, 'fileHeaderLength');
+        $tmpFile             = (string) tempnam($sysTempDir, 'file');
 
-        if (is_callable($input) && is_a($in = $input(), 'Generator')) {
+        if ($input !== null && is_a($in = $input(), 'Generator')) {
             $inputCount = 0;
 
             foreach ($in as $i => $inputChunk) {
@@ -605,9 +593,11 @@ final class Secure
                 // Grab the next chunk
                 $inputCount += $lengthInputChunk;
                 $remainder = $lengthInputChunk % $blockSize;
+
                 if ($remainder !== 0) {
                     $inputChunk = array_pad($inputChunk, $lengthInputChunk + (16 - $remainder), 0);
                 }
+
                 // Create the initialization vector
                 $iv = $this->_createIV($hashAlgorithm, $saltValue, $blockSize, $i);
 
@@ -632,6 +622,8 @@ final class Secure
                 'tmpFile' => $tmpFile,
             ];
         }
+
+        return null;
     }
 
     /**
@@ -657,6 +649,7 @@ final class Secure
                             $rootNode->addAttribute($kk, $vv);
                         }
                     }
+
                     if ($k === 'children') {
                         $isNamespace = count(explode(':', $vv['name'])) === 2;
                         $r           = $isNamespace ? $rootNode->addChild('xmlns:' . $vv['name'], '') : $rootNode->addChild($vv['name'], '');

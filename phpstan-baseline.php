@@ -14,31 +14,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Secure.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_convertPasswordToKey\\(\\) has parameter \\$hashAlgorithm with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_convertPasswordToKey\\(\\) has parameter \\$keyBits with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_convertPasswordToKey\\(\\) has parameter \\$password with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_convertPasswordToKey\\(\\) has parameter \\$saltValue with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_convertPasswordToKey\\(\\) has parameter \\$spinCount with no type specified\\.$#',
 	'identifier' => 'missingType.parameter',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Secure.php',
@@ -80,12 +56,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Secure.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:output\\(\\) should return string but returns string\\|false\\.$#',
-	'identifier' => 'return.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Offset \'name\' might not exist on array\\<string, string\\>\\|string\\.$#',
 	'identifier' => 'offsetAccess.notFound',
 	'count' => 3,
@@ -123,12 +93,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
 	'message' => '#^Parameter \\#1 \\$stream of function fread expects resource, resource\\|false given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$string of function bin2hex expects string, array\\|string given\\.$#',
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Secure.php',
