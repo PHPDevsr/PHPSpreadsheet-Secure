@@ -20,26 +20,8 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Secure.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_convertPasswordToKey\\(\\) has parameter \\$keyBits with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_convertPasswordToKey\\(\\) has parameter \\$password with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_convertPasswordToKey\\(\\) has parameter \\$saltValue with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_convertPasswordToKey\\(\\) has parameter \\$spinCount with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
+	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_convertPasswordToKey\\(\\) has parameter \\$saltValue with no value type specified in iterable type array\\.$#',
+	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Secure.php',
 ];
@@ -50,20 +32,20 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Secure.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_createUInt32LEBuffer\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_crypt\\(\\) has no return type specified\\.$#',
-	'identifier' => 'missingType.return',
+	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_createUInt32LEBuffer\\(\\) return type has no value type specified in iterable type array\\.$#',
+	'identifier' => 'missingType.iterableValue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Secure.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_crypt\\(\\) has parameter \\$key with no value type specified in iterable type array\\.$#',
 	'identifier' => 'missingType.iterableValue',
+	'count' => 1,
+	'path' => __DIR__ . '/src/Secure.php',
+];
+$ignoreErrors[] = [
+	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_crypt\\(\\) should return list\\<mixed\\> but returns array\\.$#',
+	'identifier' => 'return.type',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Secure.php',
 ];
@@ -80,12 +62,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Secure.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:output\\(\\) should return string but returns string\\|false\\.$#',
-	'identifier' => 'return.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Offset \'name\' might not exist on array\\<string, string\\>\\|string\\.$#',
 	'identifier' => 'offsetAccess.notFound',
 	'count' => 3,
@@ -98,13 +74,19 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Secure.php',
 ];
 $ignoreErrors[] = [
+	'message' => '#^PHPDoc tag @param for parameter \\$input with type mixed is not subtype of native type Closure\\|null\\.$#',
+	'identifier' => 'parameter.phpDocType',
+	'count' => 1,
+	'path' => __DIR__ . '/src/Secure.php',
+];
+$ignoreErrors[] = [
 	'message' => '#^Parameter \\#1 \\$array of function array_pad expects array, mixed given\\.$#',
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Secure.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$encryptionInfo of method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_buildEncryptionInfo\\(\\) expects array\\<string, array\\<string, array\\<string, int\\|string\\>\\>\\>, array\\<string, array\\<string, mixed\\>\\> given\\.$#',
+	'message' => '#^Parameter \\#1 \\$encryptionInfo of method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_buildEncryptionInfo\\(\\) expects array\\<string, array\\<string, array\\<string, int\\|string\\>\\>\\>, array\\<string, array\\<string, array\\|int\\|string\\>\\> given\\.$#',
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Secure.php',
@@ -123,12 +105,6 @@ $ignoreErrors[] = [
 ];
 $ignoreErrors[] = [
 	'message' => '#^Parameter \\#1 \\$stream of function fread expects resource, resource\\|false given\\.$#',
-	'identifier' => 'argument.type',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$string of function bin2hex expects string, array\\|string given\\.$#',
 	'identifier' => 'argument.type',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Secure.php',
@@ -174,6 +150,18 @@ $ignoreErrors[] = [
 	'identifier' => 'identical.alwaysTrue',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Secure.php',
+];
+$ignoreErrors[] = [
+	'message' => '#^Method Tests\\\\SecureTest\\:\\:provideEncryptor\\(\\) return type has no value type specified in iterable type iterable\\.$#',
+	'identifier' => 'missingType.iterableValue',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/SecureTest.php',
+];
+$ignoreErrors[] = [
+	'message' => '#^Parameter \\#1 \\$string of function strlen expects string, string\\|false given\\.$#',
+	'identifier' => 'argument.type',
+	'count' => 1,
+	'path' => __DIR__ . '/tests/SecureTest.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Parameter \\#2 \\$length of function fread expects int\\<1, max\\>, int\\<0, max\\> given\\.$#',
