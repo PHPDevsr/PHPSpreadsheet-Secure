@@ -468,13 +468,11 @@ class Secure
      */
     private function _hash($algorithm, ...$buffers)
     {
-        $buffers = [...[], ...$buffers];
-
-        if (! in_array($algorithm, hash_algos(), true)) {
-            throw new Exception("Hash algorithm '{$algorithm}' not supported!"); // @codeCoverageIgnore
+        try {
+            $ctx = hash_init($algorithm);
+        } catch (\ValueError $e) {
+            throw new \Exception("Hash algorithm '{$algorithm}' not supported!");
         }
-
-        $ctx = hash_init($algorithm);
 
         hash_update($ctx, pack('C*', ...$buffers));
 
