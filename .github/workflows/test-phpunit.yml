@@ -83,6 +83,6 @@ jobs:
         name: Upload coverage to Coveralls
         run: |
           composer global require php-coveralls/php-coveralls
-          php-coveralls --verbose --exclude-no-stmt --ansi
+          php-coveralls --coverage_clover=build/phpunit/logs/clover.xml --verbose --exclude-no-stmt --ansi
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
