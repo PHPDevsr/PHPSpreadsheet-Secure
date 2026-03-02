@@ -14,19 +14,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/src/Secure.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_convertPasswordToKey\\(\\) has parameter \\$keyBits with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_convertPasswordToKey\\(\\) has parameter \\$saltValue with no type specified\\.$#',
-	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_convertPasswordToKey\\(\\) has parameter \\$spinCount with no type specified\\.$#',
 	'identifier' => 'missingType.parameter',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Secure.php',
@@ -64,12 +52,6 @@ $ignoreErrors[] = [
 $ignoreErrors[] = [
 	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:_hash\\(\\) has parameter \\$buffers with no type specified\\.$#',
 	'identifier' => 'missingType.parameter',
-	'count' => 1,
-	'path' => __DIR__ . '/src/Secure.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method PHPDevsr\\\\Spreadsheet\\\\Secure\\:\\:output\\(\\) should return string but returns string\\|false\\.$#',
-	'identifier' => 'return.type',
 	'count' => 1,
 	'path' => __DIR__ . '/src/Secure.php',
 ];
