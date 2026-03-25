@@ -474,6 +474,8 @@ final class Secure
             throw new Exception(sprintf("Hash algorithm '%s' not supported!", $algorithm)); // @codeCoverageIgnore
         }
 
+        $buffers   = array_merge([], ...$buffers);
+
         hash_update($ctx, pack('C*', ...$buffers));
 
         return (array) unpack('C*', hash_final($ctx, true));
