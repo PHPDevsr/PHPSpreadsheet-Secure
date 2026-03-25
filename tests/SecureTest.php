@@ -17,6 +17,8 @@ use PHPDevsr\Spreadsheet\Secure;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+use function PHPUnit\Framework\assertNotFalse;
+
 /**
  * @internal
  */
@@ -123,13 +125,13 @@ final class SecureTest extends TestCase
 
         $data = self::$folderSupport . 'Book1.xlsx';
         $fp   = fopen($data, 'rb');
-        $this->assertNotFalse($fp);
+        assertNotFalse($fp);
 
         $fileSize = filesize($data);
-        $this->assertNotFalse($fileSize);
+        assertNotFalse($fileSize);
 
         $binaryData = fread($fp, $fileSize);
-        $this->assertNotFalse($binaryData);
+        assertNotFalse($binaryData);
 
         fclose($fp);
 
